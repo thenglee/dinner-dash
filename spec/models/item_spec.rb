@@ -18,6 +18,16 @@ RSpec.describe Item, type: :model do
         expect(@item.valid?).to eq false
       end
     end
+
+    it "is invalid without numerical value for price" do
+      @item.price = "ten"
+      expect(@item.valid?).to eq false
+    end
+
+    it "is invalid without positive value for price" do
+      @item.price = -12.5
+      expect(@item.valid?).to eq false
+    end
   end
 
   describe "associations"
