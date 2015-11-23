@@ -8,24 +8,15 @@ RSpec.describe Item, type: :model do
   end
 
   describe "validations" do
-    it "is invalid without a name" do
-      item = build(:item, name: nil)
-      expect(item.valid?).to eq false
+    before do
+      @item = build(:item)
     end
 
-    it "is invalid without a description" do
-      item = build(:item, description: nil)
-      expect(item.valid?).to eq false
-    end
-
-    it "is invalid without a price" do
-      item = build(:item, price: nil)
-      expect(item.valid?).to eq false
-    end
-
-    it "is invalid without available" do
-      item = build(:item, available: nil)
-      expect(item.valid?).to eq false
+    [:name, :description, :price, :available].each do |attr|
+      it "is invalid without #{attr}" do
+        @item.send("#{attr}=", nil)
+        expect(@item.valid?).to eq false
+      end
     end
   end
 
