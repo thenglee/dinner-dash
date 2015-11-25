@@ -27,27 +27,7 @@ RSpec.describe Item, type: :model do
       @item.price = -12.5
       expect(@item.valid?).to eq false
     end
-
-    it "is invalid without a category"
   end
 
-  describe "associations" do
-    before do
-      @item = build(:item)
-    end
-
-    # it "can have categories_items" do
-    #   expect
-    # end
-
-    it "can have categories" do
-      expect(@item.respond_to?(:categories)).to eq true
-    end
-
-    it "return its categories" do
-      category = create(:category)
-      categories_items = create(:category_item)
-      expect(@item.categories).to eq [category]
-    end
-  end
+  describe "associations"
 end
