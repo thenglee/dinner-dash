@@ -1,5 +1,3 @@
-# spec/factories/items.rb
-
 FactoryGirl.define do
   factory :item do
     name 'Chicken Pad Thai'
