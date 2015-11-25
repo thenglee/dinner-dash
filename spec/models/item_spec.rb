@@ -33,12 +33,8 @@ RSpec.describe Item, type: :model do
 
   describe "associations" do
     before do
-      @item = build(:item)
+      @item = create(:item)
     end
-
-    # it "can have categories_items" do
-    #   expect
-    # end
 
     it "can have categories" do
       expect(@item.respond_to?(:categories)).to eq true
@@ -46,7 +42,7 @@ RSpec.describe Item, type: :model do
 
     it "return its categories" do
       category = create(:category)
-      categories_items = create(:category_item)
+      create(:category_item, category: category, item: @item)
       expect(@item.categories).to eq [category]
     end
   end
