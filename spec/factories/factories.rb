@@ -5,4 +5,13 @@ FactoryGirl.define do
     price 12.5
     available true
   end
+
+  factory :category do
+    name "Main"
+  end
+
+  factory :categorization do
+    association :category
+    association :item
+  end
 end
