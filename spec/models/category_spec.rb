@@ -12,4 +12,20 @@ RSpec.describe Category, type: :model do
       expect(category.valid?).to eq false
     end
   end
+
+  describe "assocations" do
+    before do
+      @category = create(:category)
+    end
+
+    it "can have items" do
+      expect(@category.respond_to?(:items)). to eq true
+    end
+
+    it "return its items" do
+      item = create(:item)
+      create(:categorization, category: @category, item: item)
+      expect(@category.items).to eq [item]
+    end
+  end
 end
