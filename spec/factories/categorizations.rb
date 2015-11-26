@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :categorization do
-    category nil
-    item nil
+    association :category
+    association :item
   end
-
 end
