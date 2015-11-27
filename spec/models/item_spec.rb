@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   it "has a valid factory" do
-    item = create(:item)
+    item = build(:item)
     expect(item.valid?).to eq true
   end
 
@@ -31,7 +31,7 @@ RSpec.describe Item, type: :model do
 
   describe "associations" do
     before do
-      @item = create(:item)
+      @item = create(:item, :with_category)
     end
 
     it "can have categories" do
@@ -39,9 +39,7 @@ RSpec.describe Item, type: :model do
     end
 
     it "return its categories" do
-      category = create(:category)
-      create(:categorization, category: category, item: @item)
-      expect(@item.categories).to eq [category]
+      expect(@item.categories).to eq [Category.first]
     end
   end
 end
