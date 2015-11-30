@@ -23,8 +23,7 @@ RSpec.describe Category, type: :model do
     end
 
     it "return its items" do
-      item = create(:item)
-      create(:categorization, category: @category, item: item)
+      item = create(:item, categories: [@category])
       expect(@category.items).to eq [item]
     end
   end
