@@ -27,6 +27,12 @@ RSpec.describe Item, type: :model do
       @item.price = -12.5
       expect(@item.valid?).to eq false
     end
+
+    it "does not allow duplicate item names" do
+      first_item = create(:item, name: 'Chicken Pad Thai')
+      second_item = build(:item, name: 'chicken pad thai')
+      expect(second_item.valid?).to eq false
+    end
   end
 
   describe "associations" do
