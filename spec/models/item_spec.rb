@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   it "has a valid factory" do
-    item = create(:item)
+    item = create(:item, :with_categories)
     expect(item.valid?).to eq true
   end
 
   describe "validations" do
     before do
-      @item = build(:item)
+      @item = build(:item, :with_categories)
     end
 
     [:name, :description, :price, :available].each do |attr|
@@ -29,25 +29,27 @@ RSpec.describe Item, type: :model do
     end
 
     it "does not allow duplicate item names" do
-      first_item = create(:item, name: 'Chicken Pad Thai')
-      second_item = build(:item, name: 'chicken pad thai')
+      first_item = create(:item, :with_categories, name: 'Chicken Rice')
+      second_item = build(:item, :with_categories, name: 'chicken rice')
       expect(second_item.valid?).to eq false
+    end
+
+    it "is invalid without at least one category" do
+      @item.categories = []
+        expect(@item.valid?).to eq false
     end
   end
 
   describe "associations" do
-    before do
-      @item = create(:item)
-    end
-
     it "can have categories" do
-      expect(@item.respond_to?(:categories)).to eq true
+      item = create(:item, :with_categories)
+      expect(item.respond_to?(:categories)).to eq true
     end
 
     it "return its categories" do
       category = create(:category)
-      create(:categorization, category: category, item: @item)
-      expect(@item.categories).to eq [category]
+      item = create(:item, categories: [category])
+      expect(item.categories).to eq [category]
     end
   end
 end

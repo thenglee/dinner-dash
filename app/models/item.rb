@@ -3,6 +3,8 @@ class Item < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0 }
   validates :name, uniqueness: { case_sensitive: false }
 
+  validates_presence_of :categories
+
   has_many :categorizations
   has_many :categories, through: :categorizations
 end

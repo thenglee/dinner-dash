@@ -4,6 +4,10 @@ FactoryGirl.define do
     description 'Delicious chicken pad thai with peanuts and chilli flakes by the side.'
     price 12.5
     available true
+
+      trait :with_categories do
+        categories { create_list :category, 2}
+      end
   end
 
   factory :category do
