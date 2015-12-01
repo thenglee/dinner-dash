@@ -7,4 +7,10 @@ class Item < ActiveRecord::Base
 
   has_many :categorizations
   has_many :categories, through: :categorizations
+
+  has_attached_file :photo, styles: { medium: '450x350>', small: '90x70>' },
+                      default_url: '/images/:style/missing.png'
+  validates_attachment :photo, size: { less_than: 2.megabytes },
+                         content_type: { content_type: ['image/jpg', 'image/jpeg', 'image/png'] },
+                         file_name: { matches: [/jpe?g\Z/, /png\Z/] }
 end

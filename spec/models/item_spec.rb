@@ -52,4 +52,15 @@ RSpec.describe Item, type: :model do
       expect(item.categories).to eq [category]
     end
   end
+
+  describe "photo upload" do
+    it { should have_attached_file(:photo) }
+
+    it { should validate_attachment_size(:photo).
+                  less_than(2.megabytes) }
+
+    it { should validate_attachment_content_type(:photo).
+                  allowing('image/jpg', 'image/jpeg', 'image/png').
+                  rejecting('text/plain', 'text/xml') }
+  end
 end
