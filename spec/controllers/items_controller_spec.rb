@@ -15,8 +15,19 @@ RSpec.describe ItemsController, type: :controller do
   end
 
   describe "GET #show" do
-    it "assigns the requested item to @item"
-    it "renders :show template"
+    before do
+      @item = create(:item, :with_categories)
+    end
+
+    it "assigns the requested item to @item" do
+      get :show, id: @item
+      expect(assigns(:item)).to eq @item
+    end
+
+    it "renders :show template" do
+      get :show, id: @item
+      expect(response).to render_template :show
+    end
   end
 
   describe "GET #new" do
