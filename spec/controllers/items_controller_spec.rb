@@ -2,8 +2,16 @@ require 'rails_helper'
 
 RSpec.describe ItemsController, type: :controller do
   describe "GET #index" do
-    it "returns all the items"
-    it "renders :index template"
+    it "returns all the items" do
+      item = create(:item, :with_categories)
+      get :index
+      expect(assigns(:items)).to eq [item]
+    end
+
+    it "renders :index template" do
+      get :index
+      expect(response).to render_template :index
+    end
   end
 
   describe "GET #show" do
