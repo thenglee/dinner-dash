@@ -42,6 +42,22 @@ RSpec.describe ItemsController, type: :controller do
     end
   end
 
+  describe "GET #edit" do
+    before do
+      @item = create(:item, :with_categories)
+    end
+
+    it "assigns the request item to @item" do
+      get :edit, id: @item
+      expect(assigns(:item)).to eq @item
+    end
+
+    it "renders :edit template" do
+      get :edit, id: @item
+      expect(response).to render_template :edit
+    end
+  end
+
   describe "POST #create" do
     describe "with valid attributes" do
       it "saves new item in the database"
