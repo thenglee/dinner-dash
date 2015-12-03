@@ -60,12 +60,25 @@ RSpec.describe ItemsController, type: :controller do
 
   describe "POST #create" do
     describe "with valid attributes" do
-      it "saves new item in the database"
-      it "redirect to the new item"
+      before do
+        @category = create(:category)
+      end
+
+      it "creates new item" do
+        expect {
+          post :create, item: attributes_for(:item, category_ids: [@category.id])
+        }.to change(Item, :count).by 1
+      end
+
+      it "redirect to the new item" do
+        category = create(:category)
+        post :create, item: attributes_for(:item, category_ids: [@category.id])
+        expect(response).to redirect_to Item.last
+      end
     end
 
     describe "with invalid attributes" do
-      it "does not save new item in the database"
+      it "does not save new item"
       it "re-renders :new template"
       it "contain the error messages"
     end
